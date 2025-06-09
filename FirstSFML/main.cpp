@@ -2,20 +2,24 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({ 200, 200 }), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow w(sf::VideoMode({ 800,600 }), "Test");
 
-	while (window.isOpen())
+	while (w.isOpen())
 	{
-		while (const std::optional event = window.pollEvent())
-		{
-			if (event->is<sf::Event::Closed>())
-				window.close();
-		}
+#pragma region Update
 
-		window.clear();
-		window.draw(shape);
-		window.display();
+		while (auto e = w.pollEvent())
+		{
+			if (e->is<sf::Event::Closed>())
+				w.close();
+		}
+#pragma endregion
+
+#pragma region Draw
+		w.clear(sf::Color::Magenta);
+		w.display();
+#pragma endregion
 	}
+
+	return 0;
 }

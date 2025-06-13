@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-class Player
+class Skeleton
 {
 private:
 	sf::Sprite sprite;
@@ -10,7 +9,7 @@ private:
 	float moveSpeed = 0.1;
 
 public:
-	Player(sf::Sprite& loadedSprite, int playerHight, int playerWidth);
+	Skeleton(sf::Sprite& loadedSprite, int playerHight, int playerWidth);
 	void Initialize(float scale, sf::Vector2f& initPos);
 	void Update();
 	void GetPosition();

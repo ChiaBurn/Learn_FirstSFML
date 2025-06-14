@@ -6,13 +6,13 @@
 int main()
 {
 #pragma region Initialize
-	const std::filesystem::path playerTextureDir = "resources/Player.png";
+	const std::filesystem::path playerTexturePath = "Assets/SpriteSheet/Player.png";
 	sf::Vector2i playerSize = sf::Vector2i(32, 32);
 	const float playerScale = 3.f;
 	sf::Vector2f playerInitPos = sf::Vector2f(0, 0);
 	const float playerSpeed = 0.0005f;
 
-	const std::filesystem::path skeletonTextureDir = "resources/Skeleton.png";
+	const std::filesystem::path skeletonTexturePath = "Assets/SpriteSheet/Skeleton.png";
 	sf::Vector2i skeletonSize = sf::Vector2i(32, 32);
 	const float skeletonScale = 3.f;
 	sf::Vector2f skeletonInitPos = sf::Vector2f(480, 270);
@@ -23,18 +23,18 @@ int main()
 
 #pragma region Load
 	sf::Texture playerTexture;
-
-	if (!playerTexture.loadFromFile(playerTextureDir))
-	{
-		std::cout << "Falid to load Player's texture: " << playerTextureDir << std::endl;
-		system("pause");
-		return 0;
-	}
 	sf::Texture skeletonTexture;
 
-	if (!skeletonTexture.loadFromFile(skeletonTextureDir))
+	bool isPlayerTextureLoaded = playerTexture.loadFromFile(playerTexturePath);
+	bool isSkeletonTextureLoaded = skeletonTexture.loadFromFile(skeletonTexturePath);
+
+	if (!isPlayerTextureLoaded)
+		std::cout << "Falid to load Player's texture: " << playerTexturePath << std::endl;
+	if (!isSkeletonTextureLoaded)
+		std::cout << "Falid to load skeleton's texture: " << skeletonTexturePath << std::endl;
+
+	if (!(isPlayerTextureLoaded && isSkeletonTextureLoaded))
 	{
-		std::cout << "Falid to load skeleton's texture: " << skeletonTextureDir << std::endl;
 		system("pause");
 		return 0;
 	}

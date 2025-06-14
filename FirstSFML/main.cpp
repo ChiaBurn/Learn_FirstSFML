@@ -7,14 +7,13 @@ int main()
 {
 #pragma region Initialize
 	const std::filesystem::path playerTextureDir = "resources/Player.png";
-	const int playerHight = 32;
-	const int playerWidth = 32;
+	sf::Vector2i playerSize = sf::Vector2i(32, 32);
 	const float playerScale = 3.f;
 	sf::Vector2f playerInitPos = sf::Vector2f(0, 0);
+	const float playerSpeed = 0.0005f;
 
 	const std::filesystem::path skeletonTextureDir = "resources/Skeleton.png";
-	const int skeletonHight = 32;
-	const int skeletonWidth = 32;
+	sf::Vector2i skeletonSize = sf::Vector2i(32, 32);
 	const float skeletonScale = 3.f;
 	sf::Vector2f skeletonInitPos = sf::Vector2f(480, 270);
 
@@ -41,17 +40,19 @@ int main()
 	}
 
 	sf::Sprite playerSprite(playerTexture);
-	Player player(playerSprite, playerHight, playerWidth);
+	Player player(playerSprite, playerSize, playerSpeed);
 	player.Initialize(playerScale, playerInitPos);
 
 	sf::Sprite skeletonSprite(skeletonTexture);
-	Skeleton skeleton(skeletonSprite, skeletonHight, skeletonWidth);
+	Skeleton skeleton(skeletonSprite, skeletonSize);
 	skeleton.Initialize(skeletonScale, skeletonInitPos);
 
 #pragma endregion
-
+	sf::Clock clock;
 	while (window.isOpen())
 	{
+		float deltaTime = clock.restart().asMicroseconds();
+
 #pragma region Update
 
 		while (auto e = window.pollEvent())
@@ -59,7 +60,7 @@ int main()
 			if (e->is<sf::Event::Closed>())
 				window.close();
 		}
-		player.Update();
+		player.Update(deltaTime);
 #pragma endregion
 
 #pragma region Draw

@@ -1,32 +1,37 @@
 #include "Player.h"
 
-Player::Player(sf::Sprite& loadedSprite, int playerHight, int playerWidth) : sprite(loadedSprite), hight(playerHight), width(playerWidth)
+Player::Player(sf::Sprite& loadedSprite, sf::Vector2i playerSize, float playerSpeed) : sprite(loadedSprite), size(playerSize), moveSpeed(playerSpeed)
 {
 }
 
 void Player::Initialize(float scale, sf::Vector2f& initPos)
 {
-	sprite.setTextureRect(sf::IntRect({ 0,0 }, { hight, width }));
+	sprite.setTextureRect(sf::IntRect({ 0,0 }, { size.x, size.y }));
 	sprite.setScale(sf::Vector2f(scale, scale));
 	sprite.setPosition(initPos);
 }
 
-void Player::Update()
+void Player::Update(float deltaTime)
 {
-	float xDelta = 0;
-	float yDelta = 0;
+	float deltaX = 0;
+	float deltaY = 0;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-		--yDelta;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-		--xDelta;
+		--deltaY;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-		++yDelta;
+		++deltaY;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+		--deltaX;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-		++xDelta;
+		++deltaX;
 
 	sf::Vector2f position = sprite.getPosition();
-	sprite.setPosition(position + sf::Vector2f(xDelta, yDelta) * moveSpeed);
+	sprite.setPosition(position + sf::Vector2f(deltaX, deltaY) * moveSpeed * deltaTime);
+}
+
+sf::Vector2f Player::GetPosition()
+{
+	return sprite.getPosition();
 }
 
 void Player::Draw(sf::RenderWindow& window)

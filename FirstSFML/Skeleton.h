@@ -4,14 +4,13 @@ class Skeleton
 {
 private:
 	sf::Sprite sprite;
-	int hight;
-	int width;
+	sf::Vector2i size;
 	float moveSpeed = 0.1;
 
 public:
-	Skeleton(sf::Sprite& loadedSprite, int playerHight, int playerWidth);
+	Skeleton(sf::Sprite& loadedSprite, sf::Vector2i sceletonSize);
 	void Initialize(float scale, sf::Vector2f& initPos);
 	void Update();
-	void GetPosition();
+	sf::Vector2f GetPosition();
 	void Draw(sf::RenderWindow& window);
 };

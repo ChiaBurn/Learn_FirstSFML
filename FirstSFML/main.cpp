@@ -42,7 +42,7 @@ int main()
 	}
 
 	sf::Sprite playerSprite(playerTexture);
-	Player player(playerSprite, playerSize, playerSpeed, playerBoudingRectangle);
+	Player player(playerSprite, playerSize, playerSpeed);
 	player.Initialize(playerScale, playerInitPos);
 
 	sf::Sprite skeletonSprite(skeletonTexture);

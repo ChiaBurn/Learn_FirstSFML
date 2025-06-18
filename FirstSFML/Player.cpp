@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(sf::Sprite& loadedSprite, sf::Vector2i playerSize, float playerSpeed, sf::RectangleShape& playerBoudingRectangle)
-	: sprite(loadedSprite), size(playerSize), moveSpeed(playerSpeed), boundingRectangle(playerBoudingRectangle)
+Player::Player(sf::Sprite& loadedSprite, sf::Vector2i playerSize, float playerSpeed)
+	: sprite(loadedSprite), size(playerSize), moveSpeed(playerSpeed)
 {
 }
 
@@ -20,10 +20,10 @@ void Player::Initialize(float scale, sf::Vector2f& initPos)
 	sprite.setScale(sf::Vector2f(scale, scale));
 	sprite.setPosition(initPos);
 
+	boundingRectangle = sf::RectangleShape(sprite.getGlobalBounds().size);
 	boundingRectangle.setFillColor(sf::Color::Transparent);
 	boundingRectangle.setOutlineColor(sf::Color::Blue);
-	boundingRectangle.setOutlineThickness(0.5f);
-	boundingRectangle.setScale(sf::Vector2f(scale, scale));
+	boundingRectangle.setOutlineThickness(1);
 	sf::Vector2f boundingRectangleSize = boundingRectangle.getSize();
 	boundingRectangle.setOrigin(sf::Vector2f(boundingRectangleSize.x / 2, boundingRectangleSize.y / 2));
 	boundingRectangle.setPosition(initPos);

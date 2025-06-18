@@ -6,18 +6,20 @@
 int main()
 {
 #pragma region Initialize
+	sf::RenderWindow window(sf::VideoMode({ 960,540 }), "First Game!");
+
 	const std::filesystem::path playerTexturePath = "Assets/SpriteSheet/Player.png";
-	sf::Vector2i playerSize = sf::Vector2i(32, 32);
+	sf::Vector2i playerSize = sf::Vector2i(16, 16);
 	const float playerScale = 3.f;
-	sf::Vector2f playerInitPos = sf::Vector2f(0, 0);
+	sf::Vector2f playerInitPos = sf::Vector2f(window.getSize()) * 0.5f;
+	sf::RectangleShape playerBoudingRectangle = sf::RectangleShape(sf::Vector2f({ 16, 16 }));
 	const float playerSpeed = 0.0005f;
 
 	const std::filesystem::path skeletonTexturePath = "Assets/SpriteSheet/Skeleton.png";
-	sf::Vector2i skeletonSize = sf::Vector2i(32, 32);
+	sf::Vector2i skeletonSize = sf::Vector2i(16, 16);
 	const float skeletonScale = 3.f;
-	sf::Vector2f skeletonInitPos = sf::Vector2f(480, 270);
-
-	sf::RenderWindow window(sf::VideoMode({ 960,540 }), "First Game!");
+	sf::Vector2f skeletonInitPos = sf::Vector2f(playerInitPos.x + 100, playerInitPos.y + 100);
+	sf::RectangleShape skeletonBoudingRectangle = sf::RectangleShape(sf::Vector2f({ 16, 16 }));
 
 #pragma endregion
 
@@ -40,14 +42,15 @@ int main()
 	}
 
 	sf::Sprite playerSprite(playerTexture);
-	Player player(playerSprite, playerSize, playerSpeed);
+	Player player(playerSprite, playerSize, playerSpeed, playerBoudingRectangle);
 	player.Initialize(playerScale, playerInitPos);
 
 	sf::Sprite skeletonSprite(skeletonTexture);
-	Skeleton skeleton(skeletonSprite, skeletonSize);
+	Skeleton skeleton(skeletonSprite, skeletonSize, skeletonBoudingRectangle);
 	skeleton.Initialize(skeletonScale, skeletonInitPos);
 
 #pragma endregion
+
 	sf::Clock clock;
 	while (window.isOpen())
 	{
